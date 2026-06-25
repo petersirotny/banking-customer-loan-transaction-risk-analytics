@@ -1,0 +1,21 @@
+branch_id,branch_name,city,region,manager_name,branch_opened_date,customer_count,account_count,open_account_count,closed_account_count,total_current_balance,average_current_balance,total_overdraft_limit,negative_balance_account_count
+1,Košice Branch 01,Košice,Košický,Allison Hill,1996-02-14,364,385,368,17,15067197.87,39135.58,1423900.0,27
+2,Nitra Branch 02,Nitra,Nitriansky,Noah Rhodes,2005-12-26,371,381,369,12,15215341.37,39935.28,1493400.0,32
+3,Žilina Branch 03,Žilina,Žilinský,Angie Henderson,2001-04-05,347,364,352,12,14194181.64,38995.0,1335200.0,25
+4,Košice Branch 04,Košice,Košický,Daniel Wagner,2019-06-19,382,399,382,17,14113865.06,35373.1,1454600.0,18
+5,Košice Branch 05,Košice,Košický,Cristian Santos,2021-06-27,329,342,332,10,12732674.36,37230.04,976800.0,17
+6,Trnava Branch 06,Trnava,Trnavský,Connie Lawrence,1996-06-04,345,361,352,9,15473592.08,42863.14,1518400.0,12
+7,Bratislava Branch 07,Bratislava,Bratislavský,Abigail Shaffer,1999-03-16,329,337,318,19,12455093.7,36958.74,1253700.0,22
+8,Žilina Branch 08,Žilina,Žilinský,Gina Moore,2005-06-08,361,370,359,11,13976067.3,37773.15,1409700.0,19
+9,Poprad Branch 09,Poprad,Prešovský,Gabrielle Davis,1996-03-10,374,383,363,20,14793213.71,38624.58,1372700.0,24
+10,Poprad Branch 10,Poprad,Prešovský,Ryan Munoz,2003-12-02,350,361,350,11,14721341.5,40779.34,1505300.0,30
+11,Poprad Branch 11,Poprad,Prešovský,Monica Herrera,2013-10-26,352,361,349,12,13393985.54,37102.45,1162700.0,24
+12,Žilina Branch 12,Žilina,Žilinský,Jamie Arnold,2015-02-24,376,383,362,21,16683163.97,43559.17,1603400.0,27
+13,Martin Branch 13,Martin,Žilinský,Lisa Hensley,2007-06-24,365,385,370,15,14101016.4,36626.02,1076500.0,27
+14,Bratislava Branch 14,Bratislava,Bratislavský,Michele Williams,2002-02-28,383,396,381,15,16251285.92,41038.6,1189300.0,16
+15,Trnava Branch 15,Trnava,Trnavský,Dylan Miller,2010-04-06,375,386,370,16,14900394.41,38602.06,1545600.0,31
+16,Nitra Branch 16,Nitra,Nitriansky,Brian Ramirez,2001-12-22,365,382,361,21,15987852.09,41853.02,1345700.0,18
+17,Žilina Branch 17,Žilina,Žilinský,Holly Wood,2010-02-05,356,374,355,19,14890337.54,39813.74,1455700.0,21
+18,Košice Branch 18,Košice,Košický,Derek Zuniga,1999-02-28,349,358,347,11,14219574.06,39719.48,1331500.0,13
+19,Trnava Branch 19,Trnava,Trnavský,Lisa Jackson,1999-05-04,343,362,349,13,15036104.8,41536.2,1564100.0,25
+20,Banská Bystrica Branch 20,Banská Bystrica,Banskobystrický,Carla Gray,2010-06-06,363,377,362,15,15574072.5,41310.54,1403100.0,19

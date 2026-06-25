@@ -1,0 +1,359 @@
+-- ======================================================
+-- 01 DATA PROFILING
+-- ======================================================
+
+
+-- 1. TABLE INVENTORY AND ROW COUNTS
+
+select 'branches' as table_name, count(*) as row_count from branches
+union all
+select 'customers' as table_name, count(*) as row_count from customers
+union all
+select 'accounts' as table_name, count(*) as row_count from accounts
+union all
+select 'cards' as table_name, count(*) as row_count from cards
+union all
+select 'loans' as table_name, count(*) as row_count from loans
+union all
+select 'loan_payments' as table_name, count(*) as row_count from loan_payments
+union all
+select 'transactions' as table_name, count(*) as row_count from transactions
+union all
+select 'fraud_alerts' as table_name, count(*) as row_count from fraud_alerts
+union all
+select 'customer_contacts' as table_name, count(*) as row_count from customer_contacts
+union all
+select 'dataset_metadata' as table_name, count(*) as row_count from dataset_metadata
+order by row_count desc;
+
+-- 2. DATE RANGES
+
+select 
+	'customers' as table_name, 
+	'customer_since' as date_column, 
+	min(customer_since) as min_date,
+	max(customer_since) as max_date
+from customers
+union all
+select
+	'accounts' as table_name,
+	'opened_date' as date_column,
+	min(opened_date) as min_date,
+	max(opened_date) as max_date
+from accounts
+union all
+select
+	'cards' as table_name,
+	'issued_date' as date_column,
+	min(issued_date) as min_date,
+	max(issued_date) as max_date
+from cards
+union all
+select
+	'loans' as table_name,
+	'application_date' as date_column,
+	min(application_date) as min_date,
+	max(application_date) as max_date
+from loans
+union all
+select
+	'loan_payments' as table_name,
+	'due_date' as date_column,
+	min(due_date) as min_date,
+	max(due_date) as max_date
+from loan_payments
+union all
+select
+	'transactions' as table_name,
+	'transaction_date' as date_column,
+	min(transaction_date) as min_date,
+	max(transaction_date) as max_date
+from transactions
+union all
+select
+	'fraud_alerts' as table_name,
+	'alert_date' as date_column,
+	min(alert_date) as min_date,
+	max(alert_date) as max_date
+from fraud_alerts
+union all
+select
+	'customer_contacts' as table_name,
+	'contact_date' as date_column,
+	min(contact_date) as min_date,
+	max(contact_date) as max_date
+from customer_contacts
+union all
+select
+	'branches' as table_name,
+	'opened_date' as date_column,
+	min(opened_date) as min_date,
+	max(opened_date) as max_date
+from branches
+order by min_date;
+
+-- 3. DISTINCT BUSINESS KEYS
+
+select
+	'branches' as table_name,
+	'branch_id' as key_column,
+	count(*) as row_count,
+	count(distinct branch_id) as distinct_key_count
+from branches
+union all
+select
+	'customers' as table_name,
+	'customer_row_id' as key_column,
+	count(*) as row_count,
+	count(distinct customer_row_id) as distinct_key_count
+from customers
+union all
+select
+	'customers' as table_name,
+	'customer_id' as key_column,
+	count(*) as row_count,
+	count(distinct customer_id) as distinct_key_count
+from customers
+union all
+select
+	'accounts' as table_name,
+	'account_id' as key_column,
+	count(*) as row_count,
+	count(distinct account_id) as distinct_key_count
+from accounts
+union all
+select
+	'cards' as table_name,
+	'card_id' as key_column,
+	count(*) as row_count,
+	count(distinct card_id) as distinct_key_count
+from cards
+union all
+select
+	'loans' as table_name,
+	'loan_id' as key_column,
+	count(*) as row_count,
+	count(distinct loan_id) as distinct_key_count
+from loans
+union all
+select
+	'loan_payments' as table_name,
+	'payment_id' as key_column,
+	count(*) as row_count,
+	count(distinct payment_id) as distinct_key_count
+from loan_payments
+union all
+select
+	'transactions' as table_name,
+	'transaction_id' as key_column,
+	count(*) as row_count,
+	count(distinct transaction_id) as distinct_key_count
+from transactions
+union all
+select
+	'fraud_alerts' as table_name,
+	'alert_id' as key_column,
+	count(*) as row_count,
+	count(distinct alert_id) as distinct_key_count
+from fraud_alerts
+union all
+select
+	'customer_contacts' as table_name,
+	'contact_id' as key_column,
+	count(*) as row_count,
+	count(distinct contact_id) as distinct_key_count
+from customer_contacts
+order by table_name, key_column;
+
+-- 4. MISSING VALUES IN KEY COLUMNS
+
+select
+	'customers' as table_name,
+	'customer_row_id' as column_name,
+	count(*) as row_count,
+	sum(case when customer_row_id is null then 1 else 0 end) as null_count,
+	round((sum(case when customer_row_id is null then 1 else 0 end) * 100.0 / 
+	nullif(count(*), 0))::numeric, 2) as null_percentage
+from customers
+union all
+select
+	'customers' as table_name,
+	'customer_id' as column_name,
+	count(*) as row_count,
+	sum(case when customer_id is null then 1 else 0 end) as null_count,
+	round((sum(case when customer_id is null then 1 else 0 end) * 100.0 / 
+	nullif(count(*), 0))::numeric, 2) as null_percentage
+from customers
+union all
+select
+	'accounts' as table_name,
+	'account_id' as column_name,
+	count(*) as row_count,
+	sum(case when account_id is null then 1 else 0 end) as null_count,
+	round((sum(case when account_id is null then 1 else 0 end) * 100.0 / 
+	nullif(count(*), 0))::numeric, 2) as null_percentage
+from accounts
+union all
+select
+	'accounts' as table_name,
+	'customer_id' as column_name,
+	count(*) as row_count,
+	sum(case when customer_id is null then 1 else 0 end) as null_count,
+	round((sum(case when customer_id is null then 1 else 0 end) * 100.0 / 
+	nullif(count(*), 0))::numeric, 2) as null_percentage
+from accounts
+union all
+select
+	'accounts' as table_name,
+	'branch_id' as column_name,
+	count(*) as row_count,
+	sum(case when branch_id is null then 1 else 0 end) as null_count,
+	round((sum(case when branch_id is null then 1 else 0 end) * 100.0 / 
+	nullif(count(*), 0))::numeric, 2) as null_percentage
+from accounts
+union all
+select
+	'cards' as table_name,
+	'card_id' as column_name,
+	count(*) as row_count,
+	sum(case when card_id is null then 1 else 0 end) as null_count,
+	round((sum(case when card_id is null then 1 else 0 end) * 100.0 / 
+	nullif(count(*), 0))::numeric, 2) as null_percentage
+from cards
+union all
+select
+	'cards' as table_name,
+	'account_id' as column_name,
+	count(*) as row_count,
+	sum(case when account_id is null then 1 else 0 end) as null_count,
+	round((sum(case when account_id is null then 1 else 0 end) * 100.0 / 
+	nullif(count(*), 0))::numeric, 2) as null_percentage
+from cards
+union all
+select
+	'loans' as table_name,
+	'loan_id' as column_name,
+	count(*) as row_count,
+	sum(case when loan_id is null then 1 else 0 end) as null_count,
+	round((sum(case when loan_id is null then 1 else 0 end) * 100.0 / 
+	nullif(count(*), 0))::numeric, 2) as null_percentage
+from loans
+union all
+select
+	'loans' as table_name,
+	'customer_id' as column_name,
+	count(*) as row_count,
+	sum(case when customer_id is null then 1 else 0 end) as null_count,
+	round((sum(case when customer_id is null then 1 else 0 end) * 100.0 / 
+	nullif(count(*), 0))::numeric, 2) as null_percentage
+from loans
+union all
+select
+	'loans' as table_name,
+	'account_id' as column_name,
+	count(*) as row_count,
+	sum(case when account_id is null then 1 else 0 end) as null_count,
+	round((sum(case when account_id is null then 1 else 0 end) * 100.0 / 
+	nullif(count(*), 0))::numeric, 2) as null_percentage
+from loans
+union all
+select
+	'loan_payments' as table_name,
+	'payment_id' as column_name,
+	count(*) as row_count,
+	sum(case when payment_id is null then 1 else 0 end) as null_count,
+	round((sum(case when payment_id is null then 1 else 0 end) * 100.0 / 
+	nullif(count(*), 0))::numeric, 2) as null_percentage
+from loan_payments
+union all
+select
+	'loan_payments' as table_name,
+	'loan_id' as column_name,
+	count(*) as row_count,
+	sum(case when loan_id is null then 1 else 0 end) as null_count,
+	round((sum(case when loan_id is null then 1 else 0 end) * 100.0 / 
+	nullif(count(*), 0))::numeric, 2) as null_percentage
+from loan_payments
+union all
+select
+	'transactions' as table_name,
+	'transaction_id' as column_name,
+	count(*) as row_count,
+	sum(case when transaction_id is null then 1 else 0 end) as null_count,
+	round((sum(case when transaction_id is null then 1 else 0 end) * 100.0 / 
+	nullif(count(*), 0))::numeric, 2) as null_percentage
+from transactions
+union all
+select
+	'transactions' as table_name,
+	'account_id' as column_name,
+	count(*) as row_count,
+	sum(case when account_id is null then 1 else 0 end) as null_count,
+	round((sum(case when account_id is null then 1 else 0 end) * 100.0 / 
+	nullif(count(*), 0))::numeric, 2) as null_percentage
+from transactions
+union all
+select
+	'fraud_alerts' as table_name,
+	'alert_id' as column_name,
+	count(*) as row_count,
+	sum(case when alert_id is null then 1 else 0 end) as null_count,
+	round((sum(case when alert_id is null then 1 else 0 end) * 100.0 / 
+	nullif(count(*), 0))::numeric, 2) as null_percentage
+from fraud_alerts
+union all
+select
+	'fraud_alerts' as table_name,
+	'transaction_id' as column_name,
+	count(*) as row_count,
+	sum(case when transaction_id is null then 1 else 0 end) as null_count,
+	round((sum(case when transaction_id is null then 1 else 0 end) * 100.0 / 
+	nullif(count(*), 0))::numeric, 2) as null_percentage
+from fraud_alerts
+union all
+select
+	'fraud_alerts' as table_name,
+	'customer_id' as column_name,
+	count(*) as row_count,
+	sum(case when customer_id is null then 1 else 0 end) as null_count,
+	round((sum(case when customer_id is null then 1 else 0 end) * 100.0 / 
+	nullif(count(*), 0))::numeric, 2) as null_percentage
+from fraud_alerts
+union all
+select
+	'customer_contacts' as table_name,
+	'contact_id' as column_name,
+	count(*) as row_count,
+	sum(case when contact_id is null then 1 else 0 end) as null_count,
+	round((sum(case when contact_id is null then 1 else 0 end) * 100.0 / 
+	nullif(count(*), 0))::numeric, 2) as null_percentage
+from customer_contacts
+union all
+select
+	'customer_contacts' as table_name,
+	'customer_id' as column_name,
+	count(*) as row_count,
+	sum(case when customer_id is null then 1 else 0 end) as null_count,
+	round((sum(case when customer_id is null then 1 else 0 end) * 100.0 / 
+	nullif(count(*), 0))::numeric, 2) as null_percentage
+from customer_contacts
+order by null_count desc, table_name, column_name;
+
+-- 5. DUPLICATE CUSTOMER IDs
+
+select
+	customer_id,
+	count(*) as occurrence_count,
+	min(customer_since) as first_customer_since,
+	max(customer_since) as last_customer_since
+from
+	customers
+where
+	customer_id is not null
+group by
+	customer_id
+having
+	count(*) > 1
+order by
+	occurrence_count desc,
+	customer_id;
